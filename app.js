@@ -63,7 +63,7 @@ app.post('/todos/:id/edit',(req,res)=>{
   return Todo.findById(id)
   .then(todo =>{
     todo.name = name
-    return todo.save
+    return todo.save()
   })
   .then(()=> res.redirect(`/todos/${id}`))
   .catch(error=>console.log(error))
