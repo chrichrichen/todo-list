@@ -5,11 +5,12 @@ const Todo = require('./models/todo')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
+const mongoose = require('mongoose')
 require('./config/mongoose')
 const PORT = process.env.PORT || 3000
 
 const app = express()
-
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true , useUnifiedTopology: true })
 
 
 
