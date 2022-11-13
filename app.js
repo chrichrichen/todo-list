@@ -20,6 +20,16 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true , useUnifiedTo
 app.engine('handlebars',exphbs({defaultLayout :'main'}))
 app.set('view engine', 'handlebars')
 usePassport(app)
+
+app.use((req,res,next)=>{
+  console.log(req.user)
+
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+
+})
+
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(session({
   secret:'ThisIsMySecret',
