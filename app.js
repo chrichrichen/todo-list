@@ -7,6 +7,7 @@ const methodOverride = require('method-override')
 const routes = require('./routes')
 const mongoose = require('mongoose')
 require('./config/mongoose')
+const usePassport = require('./config/passport')
 const PORT = process.env.PORT || 3000
 
 const app = express()
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true , useUnifiedTo
 
 app.engine('handlebars',exphbs({defaultLayout :'main'}))
 app.set('view engine', 'handlebars')
+usePassport(app)
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(session({
   secret:'ThisIsMySecret',
