@@ -1,27 +1,33 @@
 const express = require('express')
 const router = express.Router()
+
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
+
 const User = require('../../models/user')
+
 router.get('/login', (req, res) => {
   res.render('login')
 })
+
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: 'users/login'
 }))
+
 router.get('/register', (req, res) => {
   res.render('register')
 })
+
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   const errors = []
 
   if (!name || !email || !password || !confirmPassword) {
-    errors.push({ message: 'Every fields are required' })
+    errors.push({ message: 'Every field is required.' })
   }
   if (password !== confirmPassword) {
-    errors.push({ message: 'Both passwords do not match' })
+    errors.push({ message: 'Passwords do not match' })
   }
   if (errors.length) {
     return res.render('register', {
@@ -51,7 +57,7 @@ router.post('/register', (req, res) => {
       .then(hash => User.create({
         name,
         email,
-        password: hash 
+        password: hash
       }))
       .then(() => res.redirect('/'))
       .catch(err => console.log(err))
@@ -61,7 +67,7 @@ router.post('/register', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout()
-  req.flash('success_msg','Logout successfully!')
+  req.flash('success_msg', 'Logged Out successfully')
   res.redirect('/users/login')
 })
 
