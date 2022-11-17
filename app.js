@@ -17,8 +17,8 @@ require('./config/mongoose')
 const app = express()
 const PORT = process.env.PORT
 
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
-app.set('view engine', 'hbs')
+app.engine('handlebars', exphbs({ defaultLayout: 'main', }))
+app.set('view engine', 'handlebars')
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
